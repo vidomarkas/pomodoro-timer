@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./App.css";
-import ShowTime from "./components/ShowTime";
 import Controlls from "./components/Controlls";
 import SetTime from "./components/SetTime";
 import soundfile from "./sound.mp3";
+import CircularProgressBar from "./components/CircularProgressBar";
 
 class App extends Component {
   state = {
@@ -13,11 +13,12 @@ class App extends Component {
     restTime: 300,
     inSession: true,
     inRest: false,
-    running: false
+    running: false,
+    percentage: 0,
+    activeTime: 0
   };
 
   start = () => {
-    //for testing---------------------------
     clearInterval(this.timerId);
     this.timerId = null;
     this.setState(
@@ -25,7 +26,7 @@ class App extends Component {
         sessionTime: this.state.initialSessionTime,
         restTime: this.state.initialRestTime
       },
-      // console.log("from start", this.state)
+
       () => {
         this.setState({ running: true });
         if (this.state.inSession) {
@@ -34,6 +35,7 @@ class App extends Component {
             if (this.state.running) {
               duration = duration - 1;
               this.setState({ sessionTime: duration });
+              this.calcPercentage();
               if (duration <= 0) {
                 this.playSound();
                 clearInterval(this.timerId);
@@ -49,6 +51,7 @@ class App extends Component {
             if (this.state.running) {
               duration = duration - 1;
               this.setState({ restTime: duration });
+              this.calcPercentage();
               if (duration <= 0) {
                 this.playSound();
                 clearInterval(this.timerId);
@@ -60,7 +63,6 @@ class App extends Component {
         }
       }
     );
-    //for testing --------------------------
   };
 
   reset = () => {
@@ -73,7 +75,8 @@ class App extends Component {
         inSession: true,
         inRest: false,
         sessionTime: this.state.initialSessionTime,
-        restTime: this.state.initialRestTime
+        restTime: this.state.initialRestTime,
+        percentage: 0
       },
       console.log(this.state)
     );
@@ -99,11 +102,20 @@ class App extends Component {
     this.setState(
       {
         inSession: !this.state.inSession,
-        inRest: !this.state.inRest
+        inRest: !this.state.inRest,
+        percentage: 0
       },
       console.log(this.state)
     );
     this.start();
+  };
+
+  detectActiveTime = () => {
+    if (this.state.inSession) {
+      this.setState({ activeTime: this.state.sessionTime });
+    } else {
+      this.setState({ activeTime: this.state.restTime });
+    }
   };
 
   increaseTimeSession = () => {
@@ -127,6 +139,22 @@ class App extends Component {
     }
   };
 
+  calcPercentage = () => {
+    let percentage;
+    if (this.state.inSession) {
+      percentage =
+        100 - (this.state.sessionTime * 100) / this.state.initialSessionTime;
+
+      this.setState({ percentage });
+    } else {
+      percentage =
+        100 - (this.state.restTime * 100) / this.state.initialRestTime;
+
+      this.setState({ percentage });
+    }
+    console.log("percentage", percentage);
+  };
+
   componentDidMount() {
     this.reset();
   }
@@ -134,7 +162,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <ShowTime renderTime={this.renderTime} />
+        <CircularProgressBar
+          strokeWidth="10"
+          sqSize="200"
+          percentage={this.state.percentage}
+          renderTime={this.renderTime}
+        />
+
         <Controlls
           start={this.start}
           pause={this.pause}

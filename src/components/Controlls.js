@@ -21,7 +21,6 @@ const Controlls = props => {
     return (
       <div className="controlls">
         <button onClick={props.start}>Start</button>
-        <button onClick={props.reset}>Reset</button>
       </div>
     );
   }
