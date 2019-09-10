@@ -3,6 +3,7 @@ import "./App.css";
 import ShowTime from "./components/ShowTime";
 import Controlls from "./components/Controlls";
 import SetTime from "./components/SetTime";
+import soundfile from "./sound.mp3";
 
 class App extends Component {
   state = {
@@ -16,30 +17,50 @@ class App extends Component {
   };
 
   start = () => {
-    this.setState({ running: true });
-    if (this.state.inSession) {
-      let duration = this.state.sessionTime;
-      this.timerId = setInterval(() => {
-        if (this.state.running) {
-          duration = duration - 1;
-          this.setState({ sessionTime: duration });
-          if (duration < 0) {
-            clearInterval(this.timerId);
-            this.playSound();
-            this.toggleSession();
-          }
-        }
-      }, 1000);
-    } else if (this.state.inRest) {
-      let duration = this.state.restTime;
+    //for testing---------------------------
+    clearInterval(this.timerId);
+    this.timerId = null;
+    this.setState(
+      {
+        sessionTime: this.state.initialSessionTime,
+        restTime: this.state.initialRestTime
+      },
+      // console.log("from start", this.state)
+      () => {
+        this.setState({ running: true });
+        if (this.state.inSession) {
+          let duration = this.state.sessionTime;
+          this.timerId = setInterval(() => {
+            if (this.state.running) {
+              duration = duration - 1;
+              this.setState({ sessionTime: duration });
+              if (duration <= 0) {
+                this.playSound();
+                clearInterval(this.timerId);
 
-      this.timerId = setInterval(() => {
-        if (this.state.running) {
-          duration = duration - 1;
-          this.setState({ restTime: duration });
+                this.toggleSession();
+              }
+            }
+          }, 10);
+        } else if (this.state.inRest) {
+          let duration = this.state.restTime;
+
+          this.timerId = setInterval(() => {
+            if (this.state.running) {
+              duration = duration - 1;
+              this.setState({ restTime: duration });
+              if (duration <= 0) {
+                this.playSound();
+                clearInterval(this.timerId);
+
+                this.toggleSession();
+              }
+            }
+          }, 10);
         }
-      }, 1000);
-    }
+      }
+    );
+    //for testing --------------------------
   };
 
   reset = () => {
@@ -69,6 +90,8 @@ class App extends Component {
 
   playSound = () => {
     console.log("play sound");
+    const audio = new Audio(soundfile);
+    audio.play();
   };
 
   toggleSession = () => {
@@ -80,6 +103,7 @@ class App extends Component {
       },
       console.log(this.state)
     );
+    this.start();
   };
 
   increaseTimeSession = () => {
