@@ -47,7 +47,7 @@ class App extends Component {
                 this.toggleSession();
               }
             }
-          }, 10);
+          }, 1000);
         } else if (this.state.inRest) {
           let duration = this.state.restTime;
 
@@ -63,7 +63,7 @@ class App extends Component {
                 this.toggleSession();
               }
             }
-          }, 10);
+          }, 1000);
         }
       }
     );
