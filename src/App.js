@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import "./App.css";
 import Controlls from "./components/Controlls";
-import SetTime from "./components/SetTime";
-import soundfile from "./sound.mp3";
-import CircularProgressBar from "./components/CircularProgressBar";
+import soundfile from "./assets/sound.mp3";
+import Timer from "./components/Timer";
+import Settings from "./components/Settings";
+import Status from "./components/Status";
+import Header from "./components/Header";
 
 class App extends Component {
   state = {
@@ -15,7 +17,9 @@ class App extends Component {
     inRest: false,
     running: false,
     percentage: 0,
-    activeTime: 0
+    activeTime: 0,
+    paused: false,
+    settingsOpen: false
   };
 
   start = () => {
@@ -39,7 +43,6 @@ class App extends Component {
               if (duration <= 0) {
                 this.playSound();
                 clearInterval(this.timerId);
-
                 this.toggleSession();
               }
             }
@@ -69,44 +72,38 @@ class App extends Component {
     clearInterval(this.timerId);
     this.timerId = null;
     console.log("reset");
-    this.setState(
-      {
-        running: false,
-        inSession: true,
-        inRest: false,
-        sessionTime: this.state.initialSessionTime,
-        restTime: this.state.initialRestTime,
-        percentage: 0
-      },
-      console.log(this.state)
-    );
+    this.setState({
+      running: false,
+      inSession: true,
+      inRest: false,
+      sessionTime: this.state.initialSessionTime,
+      restTime: this.state.initialRestTime,
+      percentage: 0,
+      paused: false
+    });
   };
 
   pause = () => {
     console.log("pause");
-    this.setState({ running: false });
+    this.setState({ running: false, paused: true });
   };
   resume = () => {
     console.log("resume");
-    this.setState({ running: true });
+    this.setState({ running: true, paused: false });
   };
 
   playSound = () => {
-    console.log("play sound");
     const audio = new Audio(soundfile);
     audio.play();
   };
 
   toggleSession = () => {
     console.log("toggled");
-    this.setState(
-      {
-        inSession: !this.state.inSession,
-        inRest: !this.state.inRest,
-        percentage: 0
-      },
-      console.log(this.state)
-    );
+    this.setState({
+      inSession: !this.state.inSession,
+      inRest: !this.state.inRest,
+      percentage: 0
+    });
     this.start();
   };
 
@@ -152,7 +149,13 @@ class App extends Component {
 
       this.setState({ percentage });
     }
-    console.log("percentage", percentage);
+  };
+
+  settingsHandler = () => {
+    this.setState(
+      { settingsOpen: !this.state.settingsOpen },
+      console.log("settingsOpen:", this.state.settingsOpen)
+    );
   };
 
   componentDidMount() {
@@ -161,31 +164,42 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <CircularProgressBar
-          strokeWidth="10"
-          sqSize="200"
-          percentage={this.state.percentage}
-          renderTime={this.renderTime}
-        />
+      <>
+        <div className="App">
+          <Header settingsHandler={this.settingsHandler} />
+          <Status
+            status={this.state.running}
+            inRest={this.state.running}
+            inSession={this.state.inSession}
+            paused={this.state.paused}
+          />
+          <Timer
+            strokeWidth="10"
+            sqSize="200"
+            percentage={this.state.percentage}
+            renderTime={this.renderTime}
+          />
 
-        <Controlls
-          start={this.start}
-          pause={this.pause}
-          reset={this.reset}
-          resume={this.resume}
-          state={this.state}
-          timerId={this.timerId}
-        />
-        <SetTime
-          session={this.state.initialSessionTime}
-          rest={this.state.initialRestTime}
-          increaseTimeRest={this.increaseTimeRest}
-          increaseTimeSession={this.increaseTimeSession}
-          decreaseTimeRest={this.decreaseTimeRest}
-          decreaseTimeSession={this.decreaseTimeSession}
-        />
-      </div>
+          <Controlls
+            start={this.start}
+            pause={this.pause}
+            reset={this.reset}
+            resume={this.resume}
+            state={this.state}
+            timerId={this.timerId}
+          />
+          <Settings
+            open={this.state.settingsOpen}
+            session={this.state.initialSessionTime}
+            rest={this.state.initialRestTime}
+            increaseTimeRest={this.increaseTimeRest}
+            increaseTimeSession={this.increaseTimeSession}
+            decreaseTimeRest={this.decreaseTimeRest}
+            decreaseTimeSession={this.decreaseTimeSession}
+            settingsSaved={this.settingsHandler}
+          />
+        </div>
+      </>
     );
   }
 }

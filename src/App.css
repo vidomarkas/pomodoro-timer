@@ -1,32 +1,57 @@
 .App {
   text-align: center;
-  width: 60%;
+  width: 100%;
+  max-width: 600px;
   margin: 0 auto;
   border: 1px solid #eee;
   padding: 20px;
+  /* background-color: #151522; */
+  position: relative;
 }
 
-.button {
-  border: 1px solid #000;
-  padding: 5px 10px;
-  background-color: #ef4a23;
-  margin: 5px;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.controlls {
-  border: 2px solid #000;
+/* ----------------------header----------------------- */
+.header {
   display: flex;
   justify-content: center;
-  margin: 20px auto;
-  width: 60%;
+  border: 2px solid rgb(186, 189, 26);
+}
+.header img {
+  height: 30px;
+  margin: 20px;
 }
 
-#app {
-  margin-top: 40px;
+/* ----------------------end of header----------------------- */
+
+/* ----------------------settings----------------------- */
+.settingsOpen {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
+/* ----------------------end of settings----------------------- */
+
+/* ----------------------status----------------------- */
+.status__box {
+  height: 100px;
+  width: 100%;
+  margin: 30px auto;
+  border: 2px solid rgb(40, 172, 51);
+}
+
+.status {
+  text-transform: uppercase;
+}
+/* ----------------------end of status----------------------- */
+/* ----------------------timer----------------------- */
+.timer__container {
+  border: 2px solid rgb(0, 68, 255);
+}
+
+/* ----------------------end of timer----------------------- */
 #progressInput {
   margin: 20px auto;
   width: 30%;
@@ -42,7 +67,7 @@
 }
 
 .circle-progress {
-  stroke: red;
+  stroke: rgb(49, 25, 180);
   stroke-linecap: round;
   stroke-linejoin: round;
 }
@@ -50,5 +75,49 @@
 .circle-text {
   font-size: 3em;
   font-weight: bold;
-  fill: red;
+  fill: rgb(54, 28, 197);
+  text-shadow: 2px 2px 10px rgba(53, 28, 197, 0.287);
 }
+
+/* ----------------------controlls----------------------- */
+.controlls {
+  border: 2px solid rgb(231, 0, 0);
+  display: flex;
+  justify-content: center;
+  margin: 20px auto 0;
+  width: 100%;
+  /* background-color: #eee; */
+}
+
+.btn {
+  padding: 10px 20px;
+  text-transform: uppercase;
+  display: inline-block;
+  cursor: pointer;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  border: none;
+  color: #000;
+  outline: none;
+  margin: 0 20px;
+}
+
+.btn:hover {
+  box-shadow: none;
+}
+
+.btn-start {
+  background-color: #fafafa;
+  box-shadow: 0 8px 20px -12px rgb(199, 199, 199);
+}
+.btn-pause {
+  background-color: #fafafa;
+}
+.btn-resume {
+  background-color: #fafafa;
+}
+.btn-reset {
+  background-color: #fafafa;
+}
+
+/* ----------------------end of controlls----------------------- */

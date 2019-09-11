@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-class CircularProgressBar extends Component {
+class Timer extends Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -32,14 +32,14 @@ class CircularProgressBar extends Component {
     const dashOffset = dashArray - (dashArray * this.props.percentage) / 100;
 
     return (
-      <>
+      <div className="timer__container">
         <svg
           width={this.props.sqSize}
           height={this.props.sqSize}
           viewBox={viewBox}
         >
           <circle
-            className="circle-background"
+            className="circle-background "
             cx={this.props.sqSize / 2}
             cy={this.props.sqSize / 2}
             r={radius}
@@ -70,9 +70,9 @@ class CircularProgressBar extends Component {
             {this.calcTime()}
           </text>
         </svg>
-      </>
+      </div>
     );
   }
 }
 
-export default CircularProgressBar;
+export default Timer;

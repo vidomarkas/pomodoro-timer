@@ -1,4 +1,5 @@
 import React from "react";
+import "../App.css";
 
 const Controlls = props => {
   const { running } = props.state;
@@ -6,21 +7,32 @@ const Controlls = props => {
   if (running) {
     return (
       <div className="controlls">
-        <button onClick={props.pause}>Pause</button>
-        <button onClick={props.reset}>Reset</button>
+        <button className="btn btn-pause" onClick={props.pause}>
+          Pause
+        </button>
+
+        <button className="btn btn-reset" onClick={props.reset}>
+          Reset
+        </button>
       </div>
     );
   } else if (props.timerId !== null) {
     return (
       <div className="controlls">
-        <button onClick={props.resume}>Resume</button>
-        <button onClick={props.reset}>Reset</button>
+        <button className="btn btn-resume" onClick={props.resume}>
+          Resume
+        </button>
+        <button className="btn btn-reset" onClick={props.reset}>
+          Reset
+        </button>
       </div>
     );
   } else {
     return (
       <div className="controlls">
-        <button onClick={props.start}>Start</button>
+        <button onClick={props.start} className="btn btn-start">
+          Start
+        </button>
       </div>
     );
   }
