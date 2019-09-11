@@ -2,7 +2,7 @@ import React from "react";
 import SetTime from "./SetTime";
 
 const Settings = props => {
-  if (props.open) {
+  if (props.settingsOpen) {
     return (
       <div className="settingsOpen">
         <SetTime
@@ -13,8 +13,6 @@ const Settings = props => {
           decreaseTimeRest={props.decreaseTimeSession}
           decreaseTimeSession={props.decreaseTimeSession}
         />
-        <button onClick={props.settingsSaved}>Save</button>
-        <button onClick={props.settingsCancelled}>Cancel</button>
       </div>
     );
   } else {

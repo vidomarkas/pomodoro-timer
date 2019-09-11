@@ -19,7 +19,8 @@ class App extends Component {
     percentage: 0,
     activeTime: 0,
     paused: false,
-    settingsOpen: false
+    settingsOpen: false,
+    soundOn: true
   };
 
   start = () => {
@@ -93,8 +94,10 @@ class App extends Component {
   };
 
   playSound = () => {
-    const audio = new Audio(soundfile);
-    audio.play();
+    if (this.state.soundOn) {
+      const audio = new Audio(soundfile);
+      audio.play();
+    }
   };
 
   toggleSession = () => {
@@ -151,11 +154,13 @@ class App extends Component {
     }
   };
 
-  settingsHandler = () => {
-    this.setState(
-      { settingsOpen: !this.state.settingsOpen },
-      console.log("settingsOpen:", this.state.settingsOpen)
-    );
+  showSettings = () => {
+    this.setState({ settingsOpen: true });
+    console.log("showsettings");
+  };
+  showTimer = () => {
+    this.setState({ settingsOpen: false });
+    console.log("showtimer");
   };
 
   componentDidMount() {
@@ -163,44 +168,55 @@ class App extends Component {
   }
 
   render() {
-    return (
-      <>
-        <div className="App">
-          <Header settingsHandler={this.settingsHandler} />
-          <Status
-            status={this.state.running}
-            inRest={this.state.running}
-            inSession={this.state.inSession}
-            paused={this.state.paused}
-          />
-          <Timer
-            strokeWidth="10"
-            sqSize="200"
-            percentage={this.state.percentage}
-            renderTime={this.renderTime}
-          />
+    if (!this.state.settingsOpen) {
+      return (
+        <>
+          <div className="App">
+            <Header
+              settingsOpen={this.state.settingsOpen}
+              showSettings={this.showSettings}
+              showTimer={this.showTimer}
+            />
 
-          <Controlls
-            start={this.start}
-            pause={this.pause}
-            reset={this.reset}
-            resume={this.resume}
-            state={this.state}
-            timerId={this.timerId}
-          />
+            <Status
+              status={this.state.running}
+              inRest={this.state.running}
+              inSession={this.state.inSession}
+              paused={this.state.paused}
+            />
+            <Timer
+              strokeWidth="10"
+              sqSize="200"
+              percentage={this.state.percentage}
+              renderTime={this.renderTime}
+            />
+            <Controlls
+              start={this.start}
+              pause={this.pause}
+              reset={this.reset}
+              resume={this.resume}
+              state={this.state}
+              timerId={this.timerId}
+            />
+          </div>
+        </>
+      );
+    } else {
+      return (
+        <div className="App">
+          <Header showSettings={this.showSettings} showTimer={this.showTimer} />
           <Settings
-            open={this.state.settingsOpen}
+            settingsOpen={this.state.settingsOpen}
             session={this.state.initialSessionTime}
             rest={this.state.initialRestTime}
             increaseTimeRest={this.increaseTimeRest}
             increaseTimeSession={this.increaseTimeSession}
             decreaseTimeRest={this.decreaseTimeRest}
             decreaseTimeSession={this.decreaseTimeSession}
-            settingsSaved={this.settingsHandler}
           />
         </div>
-      </>
-    );
+      );
+    }
   }
 }
 
