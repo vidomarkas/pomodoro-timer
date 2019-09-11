@@ -1,3 +1,19 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+
+html {
+  box-sizing: border-box;
+  font-family: "Comfortaa", cursive;
+}
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+}
+
 .App {
   text-align: center;
   width: 100vw;
@@ -7,7 +23,8 @@
   margin: 0 auto;
 
   /* padding: 20px; */
-  background-color: #000;
+  background-color: #1a1820;
+  /* background: linear-gradient(to bottom, #6066a4 0%, #403d77 100%); */
   position: relative;
 }
 
@@ -31,9 +48,41 @@
 /* ----------------------end of header----------------------- */
 
 /* ----------------------settings----------------------- */
-.settingsOpen {
+.settings {
   width: 100%;
-  padding: 20px;
+  color: #fff;
+}
+
+.settings__component {
+  background: #231f2a;
+  margin: 20px auto;
+  width: 90%;
+  padding: 30px 20px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.slider {
+  appearance: none;
+  width: 50%; /* Full-width */
+  height: 10px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  border-radius: 4px;
+  transition: opacity 0.2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #ffffff; /* Green background */
+  border-radius: 50%;
+  cursor: pointer; /* Cursor on hover */
+  box-shadow: 1px 0px 1px rgb(88, 88, 88);
 }
 
 /* ----------------------end of settings----------------------- */
@@ -89,18 +138,18 @@
 }
 
 .btn {
-  padding: 10px 20px;
-  height: 50px;
-  width: 100px;
+  padding: 12px 16px;
+  /* height: 50px; */
+  width: 120px;
   text-transform: uppercase;
-  display: inline-block;
   cursor: pointer;
   /* box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); */
   border-radius: 4px;
   border: none;
-
+  line-height: 20px;
+  font-size: 20px;
   outline: none;
-  margin: 0 20px;
+  margin: auto;
 }
 
 .btn:hover {
@@ -128,120 +177,3 @@
 
 /* ----------------------end of controlls----------------------- */
 /*! ========================================CSS RESET=============================================== */
-/*******************
- Box Sizing
- *****************
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
-/****************************
- Generic Margins and Paddings
- ****************************/
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-ul,
-ol,
-li,
-p,
-pre,
-blockquote,
-figure,
-hr {
-  margin: 0;
-  padding: 0;
-}
-
-/*******************
- Lists
- *******************/
-ul {
-  list-style: none;
-}
-
-/*******************
- Forms and buttons
- *******************/
-input,
-textarea,
-select,
-button {
-  color: inherit;
-  font: inherit;
-  letter-spacing: inherit;
-}
-
-/* I usually expand input and textarea to full-width */
-input[type="text"],
-textarea {
-  width: 100%;
-}
-
-/* More friendly border */
-input,
-textarea,
-button {
-  border: 1px solid gray;
-}
-
-/* Some defaults for one-liner buttons */
-button {
-  padding: 0.75em 1em;
-  border-radius: 0;
-  line-height: 1;
-  background-color: transparent;
-}
-
-button * {
-  pointer-events: none;
-}
-
-/***********************************
- Easy responsive for media elements
- ***********************************/
-img,
-iframe,
-video,
-object,
-embed {
-  display: block;
-  max-width: 100%;
-}
-
-/*******************
- Useful table styles
- *******************/
-table {
-  table-layout: fixed;
-  width: 100%;
-}
-
-/*******************
- The hidden attribute
- *******************/
-[hidden] {
-  display: none !important;
-}
-
-/*******************
- Noscript
- *******************/
-noscript {
-  display: block;
-  margin-bottom: 1em;
-  margin-top: 1em;
-}

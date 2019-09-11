@@ -118,19 +118,27 @@ class App extends Component {
     }
   };
 
-  increaseTimeSession = () => {
-    this.setState({ initialSessionTime: this.state.initialSessionTime + 60 });
-  };
-  decreaseTimeSession = () => {
-    this.setState({ initialSessionTime: this.state.initialSessionTime - 60 });
-  };
-  increaseTimeRest = () => {
-    this.setState({ initialRestTime: this.state.initialRestTime + 60 });
-  };
-  decreaseTimeRest = () => {
-    this.setState({ initialRestTime: this.state.initialRestTime - 60 });
-  };
+  // increaseTimeSession = () => {
+  //   this.setState({ initialSessionTime: this.state.initialSessionTime + 60 });
+  // };
+  // decreaseTimeSession = () => {
+  //   this.setState({ initialSessionTime: this.state.initialSessionTime - 60 });
+  // };
+  // increaseTimeRest = () => {
+  //   this.setState({ initialRestTime: this.state.initialRestTime + 60 });
+  // };
+  // decreaseTimeRest = () => {
+  //   this.setState({ initialRestTime: this.state.initialRestTime - 60 });
+  // };
 
+  changeSessionLength = e => {
+    console.log(e);
+    this.setState({ initialSessionTime: e * 60 });
+  };
+  changeRestLength = e => {
+    console.log(e);
+    this.setState({ initialRestTime: e * 60 });
+  };
   renderTime = () => {
     if (this.state.inSession) {
       return this.state.sessionTime;
@@ -209,10 +217,8 @@ class App extends Component {
             settingsOpen={this.state.settingsOpen}
             session={this.state.initialSessionTime}
             rest={this.state.initialRestTime}
-            increaseTimeRest={this.increaseTimeRest}
-            increaseTimeSession={this.increaseTimeSession}
-            decreaseTimeRest={this.decreaseTimeRest}
-            decreaseTimeSession={this.decreaseTimeSession}
+            changeSessionLength={this.changeSessionLength}
+            changeRestLength={this.changeRestLength}
           />
         </div>
       );

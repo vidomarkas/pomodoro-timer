@@ -7,32 +7,32 @@ const Controlls = props => {
   if (running) {
     return (
       <div className="controlls">
-        <button className="btn btn-pause" onClick={props.pause}>
+        <div className="btn btn-pause" onClick={props.pause}>
           Pause
-        </button>
+        </div>
 
-        <button className="btn btn-reset" onClick={props.reset}>
+        <div className="btn btn-reset" onClick={props.reset}>
           Reset
-        </button>
+        </div>
       </div>
     );
   } else if (props.timerId !== null) {
     return (
       <div className="controlls">
-        <button className="btn btn-resume" onClick={props.resume}>
+        <div className="btn btn-resume" onClick={props.resume}>
           Resume
-        </button>
-        <button className="btn btn-reset" onClick={props.reset}>
+        </div>
+        <div className="btn btn-reset" onClick={props.reset}>
           Reset
-        </button>
+        </div>
       </div>
     );
   } else {
     return (
       <div className="controlls">
-        <button onClick={props.start} className="btn btn-start">
+        <div onClick={props.start} className="btn btn-start">
           Start
-        </button>
+        </div>
       </div>
     );
   }
