@@ -1,4 +1,5 @@
 import React from "react";
+import Switch from "./Switch";
 
 const SetTime = props => {
   const handleSessionChange = e => {
@@ -32,6 +33,10 @@ const SetTime = props => {
           onChange={handleRestChange}
         />
         {props.rest / 60}
+      </div>
+      <div className="settings__component">
+        Sound
+        <Switch controlSound={props.controlSound} />
       </div>
     </>
   );
