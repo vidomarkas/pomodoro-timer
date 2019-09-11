@@ -5,7 +5,7 @@
   max-height: 800px;
   max-width: 600px;
   margin: 0 auto;
-  border: 1px solid #eee;
+
   /* padding: 20px; */
   background-color: #000;
   position: relative;
@@ -130,9 +130,12 @@
 /*! ========================================CSS RESET=============================================== */
 /*******************
  Box Sizing
- *******************/
-html {
+ *****************
+
+* {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 *,
