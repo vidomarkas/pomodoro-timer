@@ -24,6 +24,7 @@ div {
 
 body {
   font-family: "Montserrat", sans-serif;
+  background-color: #1a1820;
 }
 
 .App {
@@ -224,6 +225,22 @@ body {
   width: 50%;
 }
 
+.footer {
+  padding: 5px;
+  position: absolute;
+  bottom: 0;
+  right: 50%;
+  transform: translate(50%, 0);
+}
+
+.footer__link {
+  text-decoration: none;
+  color: rgb(105, 105, 105);
+}
+
+.footer__link:hover {
+  color: #4c81fb;
+}
 /* ----------------------end of controlls----------------------- */
 /*! ========================================switch=============================================== */
 .react-switch-checkbox {

@@ -6,6 +6,7 @@ import Timer from "./components/Timer";
 import Settings from "./components/Settings";
 import Status from "./components/Status";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 class App extends Component {
   state = {
@@ -199,17 +200,23 @@ class App extends Component {
       );
     } else {
       return (
-        <div className="App">
-          <Header showSettings={this.showSettings} showTimer={this.showTimer} />
-          <Settings
-            settingsOpen={this.state.settingsOpen}
-            session={this.state.initialSessionTime}
-            rest={this.state.initialRestTime}
-            changeSessionLength={this.changeSessionLength}
-            changeRestLength={this.changeRestLength}
-            controlSound={this.controlSound}
-          />
-        </div>
+        <>
+          <div className="App">
+            <Header
+              showSettings={this.showSettings}
+              showTimer={this.showTimer}
+            />
+            <Settings
+              settingsOpen={this.state.settingsOpen}
+              session={this.state.initialSessionTime}
+              rest={this.state.initialRestTime}
+              changeSessionLength={this.changeSessionLength}
+              changeRestLength={this.changeRestLength}
+              controlSound={this.controlSound}
+            />
+          </div>
+          <Footer />
+        </>
       );
     }
   }
