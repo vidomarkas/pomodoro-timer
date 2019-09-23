@@ -26,6 +26,7 @@ class App extends Component {
 
   start = () => {
     clearInterval(this.timerId);
+
     this.timerId = null;
     this.setState(
       {

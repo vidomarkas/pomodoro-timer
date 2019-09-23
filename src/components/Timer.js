@@ -12,6 +12,7 @@ class Timer extends Component {
     };
     const minutes = Math.floor(this.props.renderTime() / 60);
     const seconds = Math.round(this.props.renderTime() % 60);
+    document.title = `${minutes}:${minTwoDigits(seconds)} | Pomodoro timer`;
     return (
       <>
         {minutes}:{minTwoDigits(seconds)}
